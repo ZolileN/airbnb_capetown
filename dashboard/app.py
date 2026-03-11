@@ -23,6 +23,7 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 import streamlit as st
+from typing import Any, Dict
 
 # ══════════════════════════════════════════════════════════════════════════════
 # CONFIG
@@ -84,7 +85,7 @@ section[data-testid="stSidebar"] .stRadio label:hover { color: #e8936a !importan
     font-weight: 900;
     font-size: 2.8rem;
     line-height: 1.05;
-    color: #1a1814;
+    color: #faf8f5;
     margin-bottom: 0.3rem;
 }
 .page-subtitle {
@@ -194,7 +195,7 @@ COLOR_SEQ = [
     "#e76f51", "#a8c5a0", "#c9b29a", "#5d7a8a",
 ]
 
-CHART_BASE = dict(
+CHART_BASE: Dict[str, Any] = dict(
     paper_bgcolor="rgba(0,0,0,0)",
     plot_bgcolor="rgba(0,0,0,0)",
     font=dict(family="DM Sans", color="#7a6e65", size=12),
@@ -356,7 +357,7 @@ if "Market Overview" in page:
             x=0.5, y=0.5, showarrow=False,
             font=dict(size=18, color="#1a1814", family="Playfair Display"),
         )
-        fig.update_layout(**CHART_BASE, height=320, showlegend=False)
+        fig.update_layout(CHART_BASE, height=320, showlegend=False)
         st.plotly_chart(fig, use_container_width=True)
 
     with col2:
@@ -376,7 +377,7 @@ if "Market Overview" in page:
             textfont=dict(color="#9b8f82", size=11),
             hovertemplate="<b>%{y}</b>: %{x:,} listings<extra></extra>",
         ))
-        fig2.update_layout(**CHART_BASE, height=320, showlegend=False,
+        fig2.update_layout(CHART_BASE, height=320, showlegend=False,
                            coloraxis_showscale=False,
                            xaxis_title="", yaxis_title="")
         st.plotly_chart(fig2, use_container_width=True)
@@ -395,7 +396,7 @@ if "Market Overview" in page:
         annotation_text=f"Avg R{int(listings['price_zar'].mean()):,}",
         annotation_font=dict(color="#2a9d8f", size=11),
     )
-    fig3.update_layout(**CHART_BASE, height=240,
+    fig3.update_layout(CHART_BASE, height=240,
                        xaxis_title="Nightly Price (R)", yaxis_title="Listings")
     st.plotly_chart(fig3, use_container_width=True)
 
@@ -468,7 +469,7 @@ elif "Neighbourhoods" in page:
         textfont=dict(color="#9b8f82", size=10),
         hovertemplate="<b>%{y}</b><br>R%{x:,.0f}/night<extra></extra>",
     ))
-    fig.update_layout(**CHART_BASE, height=520,
+    fig.update_layout(CHART_BASE, height=520,
                       coloraxis_showscale=False,
                       yaxis=dict(**CHART_BASE["yaxis"], autorange="reversed"))
     st.plotly_chart(fig, use_container_width=True)
@@ -490,7 +491,7 @@ elif "Neighbourhoods" in page:
         fig2.update_traces(
             hovertemplate="<b>%{hovertext}</b><br>R%{x:,.0f}/night<br>Rating: %{y}<extra></extra>"
         )
-        fig2.update_layout(**CHART_BASE, height=340,
+        fig2.update_layout(CHART_BASE, height=340,
                            coloraxis_colorbar=dict(title="Occ %",
                                                    tickfont=dict(color="#9b8f82")))
         st.plotly_chart(fig2, use_container_width=True)
@@ -507,7 +508,7 @@ elif "Neighbourhoods" in page:
             textfont=dict(color="#9b8f82", size=10),
             hovertemplate="<b>%{y}</b><br>Est. R%{x:,.0f}/yr<extra></extra>",
         ))
-        fig3.update_layout(**CHART_BASE, height=340)
+        fig3.update_layout(CHART_BASE, height=340)
         st.plotly_chart(fig3, use_container_width=True)
 
     # ── Quadrant table ──
@@ -595,7 +596,7 @@ elif "Host Intelligence" in page:
         fig.add_trace(go.Bar(name="Regular Host", x=categories, y=r_vals,
                              marker_color=COLORS["ocean"], marker_opacity=0.6,
                              marker_line_width=0))
-        fig.update_layout(**CHART_BASE, height=320, barmode="group",
+        fig.update_layout(CHART_BASE, height=320, barmode="group",
                           legend=dict(orientation="h", y=1.08))
         st.plotly_chart(fig, use_container_width=True)
 
@@ -624,7 +625,7 @@ elif "Host Intelligence" in page:
             textfont=dict(family="DM Sans", size=11, color="#4a4039"),
             hovertemplate="<b>%{label}</b>: %{value} hosts<extra></extra>",
         ))
-        fig2.update_layout(**CHART_BASE, height=320, showlegend=False)
+        fig2.update_layout(CHART_BASE, height=320, showlegend=False)
         st.plotly_chart(fig2, use_container_width=True)
 
     # ── Host tenure ──
@@ -660,7 +661,7 @@ elif "Host Intelligence" in page:
             textfont=dict(color="#9b8f82", size=11),
             hovertemplate="<b>%{x}</b><br>Rating: %{y}<extra></extra>",
         ))
-        fig3.update_layout(**CHART_BASE, height=280,
+        fig3.update_layout(CHART_BASE, height=280,
                            yaxis=dict(**CHART_BASE["yaxis"], range=[4.0, 5.0]),
                            title=dict(text="Avg Rating by Tenure",
                                       font=dict(size=12, color="#9b8f82")))
@@ -675,7 +676,7 @@ elif "Host Intelligence" in page:
             textfont=dict(color="#9b8f82", size=11),
             hovertemplate="<b>%{x}</b><br>R%{y:,.0f}/night<extra></extra>",
         ))
-        fig4.update_layout(**CHART_BASE, height=280,
+        fig4.update_layout(CHART_BASE, height=280,
                            title=dict(text="Avg Price by Tenure",
                                       font=dict(size=12, color="#9b8f82")))
         st.plotly_chart(fig4, use_container_width=True)
@@ -732,8 +733,8 @@ elif "Pricing & Seasons" in page:
     premium    = round((peak_month["avg_price"] - low_month["avg_price"]) / low_month["avg_price"] * 100, 1)
 
     c1, c2, c3, c4 = st.columns(4)
-    c1.markdown(kpi("Peak Month", peak_month["month_name"], f"R{int(peak_month['avg_price']):,} avg/night"), unsafe_allow_html=True)
-    c2.markdown(kpi("Low Season", low_month["month_name"], f"R{int(low_month['avg_price']):,} avg/night"), unsafe_allow_html=True)
+    c1.markdown(kpi("Peak Month", peak_month["month_name"], f"R{int(peak_month['avg_price'].item()):,} avg/night"), unsafe_allow_html=True)
+    c2.markdown(kpi("Low Season", low_month["month_name"], f"R{int(low_month['avg_price'].item()):,} avg/night"), unsafe_allow_html=True)
     c3.markdown(kpi("Peak Premium", f"+{premium}%", "above low season"), unsafe_allow_html=True)
     c4.markdown(kpi("Peak Availability", f"{peak_month['availability_pct']}%", f"vs {low_month['availability_pct']}% low season"), unsafe_allow_html=True)
 
@@ -762,7 +763,7 @@ elif "Pricing & Seasons" in page:
         hovertemplate="<b>%{x}</b><br>Availability: %{y}%<extra></extra>",
     ))
     fig.update_layout(
-        **CHART_BASE, height=320,
+        CHART_BASE, height=320,
         coloraxis_showscale=False,
         yaxis=dict(**CHART_BASE["yaxis"], title="Avg Price (R)"),
         yaxis2=dict(overlaying="y", side="right", title="Availability %",
@@ -801,7 +802,7 @@ elif "Pricing & Seasons" in page:
             textfont=dict(color="#9b8f82", size=11),
             hovertemplate="<b>%{x}</b><br>%{y} listings<extra></extra>",
         ))
-        fig2.update_layout(**CHART_BASE, height=300)
+        fig2.update_layout(CHART_BASE, height=300)
         st.plotly_chart(fig2, use_container_width=True)
 
     with col2:
@@ -825,7 +826,7 @@ elif "Pricing & Seasons" in page:
             name="Avg Price",
             hovertemplate="<b>%{x} bedrooms</b><br>R%{y:,} avg<extra></extra>",
         ))
-        fig3.update_layout(**CHART_BASE, height=300,
+        fig3.update_layout(CHART_BASE, height=300,
                            xaxis=dict(**CHART_BASE["xaxis"],
                                       title="Bedrooms",
                                       tickvals=list(range(1,7))),
@@ -912,7 +913,7 @@ elif "Reviews & Occupancy" in page:
         line=dict(color=COLORS["navy"], width=2.5),
         hovertemplate="<b>%{x}</b> rolling avg: %{y}<extra></extra>",
     ))
-    fig.update_layout(**CHART_BASE, height=280,
+    fig.update_layout(CHART_BASE, height=280,
                       legend=dict(orientation="h", y=1.08))
     st.plotly_chart(fig, use_container_width=True)
 
@@ -943,7 +944,7 @@ elif "Reviews & Occupancy" in page:
             textfont=dict(color="#9b8f82", size=10),
             hovertemplate="<b>%{y}</b><br>%{x}% occupied<extra></extra>",
         ))
-        fig2.update_layout(**CHART_BASE, height=520,
+        fig2.update_layout(CHART_BASE, height=520,
                            coloraxis_showscale=False,
                            xaxis=dict(**CHART_BASE["xaxis"], title="Occupancy %"),
                            yaxis=dict(**CHART_BASE["yaxis"], autorange="reversed"))
@@ -974,7 +975,7 @@ elif "Reviews & Occupancy" in page:
             textfont=dict(color="#9b8f82", size=10),
             hovertemplate="<b>%{y}</b><br>%{x:,} reviews<extra></extra>",
         ))
-        fig3.update_layout(**CHART_BASE, height=520,
+        fig3.update_layout(CHART_BASE, height=520,
                            coloraxis_showscale=False,
                            xaxis=dict(**CHART_BASE["xaxis"], title="Total Reviews"),
                            yaxis=dict(**CHART_BASE["yaxis"], autorange="reversed"))
@@ -1017,7 +1018,7 @@ elif "Reviews & Occupancy" in page:
         hovertemplate="<b>%{x}</b><br>R%{y:,}<extra></extra>",
     ))
     fig4.update_layout(
-        **CHART_BASE, height=300,
+        CHART_BASE, height=300,
         yaxis=dict(**CHART_BASE["yaxis"], title="Occupancy %"),
         yaxis2=dict(overlaying="y", side="right", title="Avg Price (R)",
                     tickfont=dict(color=COLORS["ocean"]),

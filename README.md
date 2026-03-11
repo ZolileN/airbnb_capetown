@@ -88,7 +88,7 @@ comments
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/yourusername/airbnb_capetown.git
+git clone https://github.com/ZolileN/airbnb_capetown
 cd airbnb_capetown
 ```
 
@@ -101,13 +101,13 @@ pip install -r requirements.txt
 ### 3. Generate the dataset
 
 ```bash
-python pipeline/generate_data.py
+python3 pipeline/generate_data.py
 ```
 
 ### 4. Load into SQLite
 
 ```bash
-python pipeline/load_data.py
+python3 pipeline/load_data.py
 ```
 
 ### 5. Run the SQL queries
