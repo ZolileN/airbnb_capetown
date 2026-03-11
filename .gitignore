@@ -1,0 +1,43 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Environment variables
+.env
+*.env
+
+# Streamlit
+.streamlit/secrets.toml
+
+# Logs
+logs/
+*.log
+
+# Large / generated data files — commit CSVs but not the DB binary
+data/*.db
+data/raw/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Build
+dist/
+build/
+*.egg-info/
+.pytest_cache/
+.coverage
