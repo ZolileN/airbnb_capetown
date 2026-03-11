@@ -19,9 +19,11 @@ env/
 logs/
 *.log
 
-# Large / generated data files — commit CSVs but not the DB binary
-data/*.db
+# Raw / external data only
 data/raw/
+
+# DB is auto-built from CSVs on Streamlit Cloud — optionally exclude locally
+# data/*.db
 
 # OS
 .DS_Store
